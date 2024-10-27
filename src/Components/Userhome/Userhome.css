@@ -1,0 +1,45 @@
+.itsm-tool {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.create-ticket-form {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.popup {
+    margin: 20px auto;
+    padding: 15px;
+    width: 300px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.ticket-list {
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+}
