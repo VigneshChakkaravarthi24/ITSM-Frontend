@@ -26,7 +26,7 @@ import {loader as userHomePageLoader} from "./Components/Userhome/Userhome"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
+    element: <LoginPage goToPath="/" />,
     children:[
       {
      
@@ -36,10 +36,17 @@ const router = createBrowserRouter([
 {
 path:"/userHome",
 element:<UserHomePage/>,
-errorElement: <ErrorPage />,
+errorElement: <ErrorPage goToPath="/" />,
 loader:userHomePageLoader
 
 },
+{
+  path:"/adminHome",
+  element:<AdminHome/>,
+  errorElement: <ErrorPage />,
+  loader:userHomePageLoader
+  
+  },
   {
     path:"tickets/:id",
     element:<TicketPage/>,

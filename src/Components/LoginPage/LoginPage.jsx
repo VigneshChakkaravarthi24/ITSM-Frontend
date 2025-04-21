@@ -16,29 +16,39 @@ const sharedClasses = {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [role, setRole] = useState('User');
+
 
   useEffect(() => {
     sessionStorage.clear();
   }, []);
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
 
-  const isFormValid = email && password && agree;
+  const isFormValid = email && agree;
 
-  const validateUser = async (email, password) => {
+  const validateUser = async (email, role) => {
     setLoading(true);
     setLoginError('');
     try {
-      const body = { email, password };
+      const body = { email, role };
       const result = await axios.post(`${BASE_URL}/users/login`, body);
       if (result && result.data && result.data.token) {
         sessionStorage.setItem("token", result.data.token);
         sessionStorage.setItem("user",JSON.stringify( result.data.user));
-        navigate('/userHome');
+        if(role=='User')
+        {        navigate('/userHome');
+
+
+        }
+        else if(role=='Admin')
+        {
+          navigate('/AdminHome')
+
+        }
       }
     } catch (error) {
       setLoginError(error.response ? error.response.data.errorMessage : "An error occurred while reaching the server. Please contact the admin.");
@@ -47,9 +57,9 @@ const LoginPage = () => {
     }
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async(event) => {
     event.preventDefault();
-    validateUser(email, password);
+    validateUser(email,role);
   };
 
   return (
@@ -72,17 +82,19 @@ const LoginPage = () => {
               />
             </div>
             <div className="mb-6">
-              <label className={`block ${sharedClasses.textGold}`} htmlFor="quiz-code">Password </label>
-              <input
-                className={sharedClasses.input}
-                type="password"
-                id="quiz-code"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+  <label className={`block ${sharedClasses.textGold}`} htmlFor="user-role">Role</label>
+  <select
+    id="user-role"
+    className={sharedClasses.input}
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+    required
+  >
+    <option value="User">End User</option>
+    <option value="Admin">Admin</option>
+  </select>
+</div>
+
             <div className="flex items-center mb-6">
               <input
                 type="checkbox"
